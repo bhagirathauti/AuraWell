@@ -12,6 +12,9 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { MatButton } from '@angular/material/button';
 import { NewEntryDialogComponent } from '../new-entry-dialog/new-entry-dialog.component';
 import { MatIcon } from '@angular/material/icon';
+import { HotToastService } from '@ngneat/hot-toast';
+
+
 @Component({
   selector: 'app-dashboard',
   standalone: true,
@@ -33,7 +36,8 @@ export class DashboardComponent implements OnInit {
   constructor(
     private entriesService: EntriesService,
     public dialog: MatDialog ,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private toast: HotToastService
   ) {
     
   }
@@ -62,6 +66,7 @@ export class DashboardComponent implements OnInit {
   deleteEntry(entryId: string) {
     this.entriesService.deleteEntry(entryId, this.email).subscribe(
       response => {
+        this.toast.success('Entry deleted successfully');
         this.entries = this.entries.filter(entry => entry._id !== entryId);  // Remove deleted entry from view
       },
       error => {
@@ -82,6 +87,7 @@ export class DashboardComponent implements OnInit {
 
         this.entriesService.editEntry(entryId, result.content).subscribe(
           (response) => {
+            this.toast.success('Entry updated successfully');
             const updatedEntry = this.entries.find(entry => entry._id === entryId);
             if (updatedEntry) {
               updatedEntry.content = result.content;
@@ -103,6 +109,7 @@ export class DashboardComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+        this.toast.success('Entry added successfully');
         this.entries.push(result);
       }
     });

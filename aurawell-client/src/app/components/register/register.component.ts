@@ -10,8 +10,9 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { HotToastService } from '@ngneat/hot-toast';
 
 
 @Component({
@@ -26,7 +27,7 @@ export class RegisterComponent {
   registerForm: FormGroup;
   hidePassword = true;
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private toast: HotToastService, private router: Router) {
     this.registerForm = this.fb.group({
       name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
@@ -46,9 +47,15 @@ export class RegisterComponent {
       this.authService.signup(this.registerForm.value.name, this.registerForm.value.email, this.registerForm.value.password).subscribe(
         (response) => {
           console.log(response);
+          this.toast.success('Registration successful', { duration: 1500 });
+          setTimeout(() => {
+            // Redirect to login page
+            this.router.navigate(['/login']);
+          }, 1500);
         },
         (error) => {
           console.error(error);
+          this.toast.error('Registration failed');
         }
       );
     }

@@ -12,6 +12,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { HotToastService } from '@ngneat/hot-toast';
 
 
 @Component({
@@ -26,7 +27,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   hidePassword: boolean = true;
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private toast: HotToastService) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required]],
       password: ['', [Validators.required]]
@@ -48,11 +49,15 @@ export class LoginComponent implements OnInit {
       this.authService.login(this.loginForm.value.email, this.loginForm.value.password).subscribe(
         (response) => {
           console.log(response);
+          this.toast.success('Login successful' , {duration: 1500});
           localStorage.setItem('email', response.email);
-          this.router.navigate(['/dashboard']);
+          setTimeout(() => {
+            this.router.navigate(['/dashboard']);
+          }, 1500);
         },
         (error) => {
           console.error(error);
+          this.toast.error('Login failed');
         }
       );
     }

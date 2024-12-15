@@ -17,6 +17,9 @@ import { routes } from './app.routes';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DatePipe } from '@angular/common';
+import { provideHotToastConfig } from '@ngneat/hot-toast';
+
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
@@ -33,9 +36,8 @@ export const appConfig: ApplicationConfig = {
       MatProgressSpinnerModule,
       ReactiveFormsModule,
       BrowserAnimationsModule,
-      DatePipe
-
-
+      DatePipe,
     ),
+    provideHotToastConfig()
   ],
 };
