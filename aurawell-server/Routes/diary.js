@@ -74,8 +74,6 @@ router.put('/edit-entry/:id', async (req, res) => {
         res.status(500).json({ message: 'Error updating diary entry', error: err.message });
     }
 });
-
-// Delete a diary entry with email verification
 router.delete('/delete-entry/:id', async (req, res) => {
     const { id } = req.params;
     const { email } = req.body;
