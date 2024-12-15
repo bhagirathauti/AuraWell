@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { NewEntryDialogComponent } from '../new-entry-dialog/new-entry-dialog.component';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -13,5 +14,12 @@ import { NewEntryDialogComponent } from '../new-entry-dialog/new-entry-dialog.co
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
-  
+    constructor(private router: Router){
+
+    }
+
+    logout(){
+      localStorage.removeItem('email');
+      this.router.navigate(['/login']);
+    }
 }
