@@ -1,0 +1,42 @@
+<div>
+    <div class="dashboard">
+        <div>
+          <h1>Your Diary Entries</h1>
+          <button mat-stroked-button 
+              (click)="addEntry()"
+              routerLink="/add-entry" 
+              routerLinkActive="active-link"
+              matTooltip="Create New Entry">
+        <mat-icon>add_circle_outline</mat-icon>
+        New Entry
+      </button>
+        </div>
+      
+        <!-- Loading Spinner -->
+        <mat-progress-spinner *ngIf="loading" mode="indeterminate" diameter="50"></mat-progress-spinner>
+      
+        <!-- Error Message -->
+        <mat-card *ngIf="errorMessage" class="error-card">
+          <mat-card-content>{{ errorMessage }}</mat-card-content>
+        </mat-card>
+      
+        <!-- Displaying all entries -->
+        <div *ngIf="!loading && !errorMessage">
+          <mat-card *ngFor="let entry of entries" class="entry-card">
+            <mat-card-content>
+              <h3>{{formatDate(entry.date)}}</h3>
+              <p>{{ entry.content }}</p>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-button color="primary" (click)="editEntry(entry._id, entry.content)">Edit</button>
+              <button mat-button color="warn" (click)="deleteEntry(entry._id)">Delete</button>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+        
+      </div>
+      
+    
+</div>
+
+

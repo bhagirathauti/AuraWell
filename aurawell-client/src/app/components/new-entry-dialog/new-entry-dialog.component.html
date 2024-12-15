@@ -1,0 +1,21 @@
+<mat-card class="add-entry-form">
+    <mat-card-content>
+      <!-- New Diary Entry Form -->
+      <form [formGroup]="newEntryForm">
+        <mat-form-field appearance="fill" [style]="{'width': '100%'}">
+          <mat-label>New Diary Entry</mat-label>
+          <textarea matInput formControlName="content" rows="20" placeholder="Write a new entry..."></textarea>
+          <mat-error *ngIf="newEntryForm.get('content')">
+            Content is required Min=50 words , Max=200 words.
+          </mat-error>
+        </mat-form-field>
+      </form>
+      <mat-card-actions>
+        <!-- Submit Button with Angular Material Style -->
+        <button mat-raised-button color="primary" type="button" (click)="onSubmit()">Add Entry</button>
+      </mat-card-actions>
+    </mat-card-content>
+  
+    <!-- Card Actions -->
+  </mat-card>
+  

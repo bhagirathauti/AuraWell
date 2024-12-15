@@ -1,0 +1,73 @@
+.dashboard {
+    padding: 20px 158px;
+  }
+  
+  .loading-spinner {
+    text-align: center;
+    font-size: 1.5rem;
+  }
+  
+  .error-message {
+    color: red;
+    font-size: 1.2rem;
+    text-align: center;
+  }
+  
+  .entry-card {
+    background-color: #f9f9f9;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .entry-content {
+    font-size: 1rem;
+    color: #333;
+  }
+  
+  .entry-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+  
+  .entry-actions button {
+    padding: 8px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .entry-actions button:hover {
+    background-color: #0056b3;
+  }
+  
+  .add-entry-form {
+    margin-top: 20px;
+  }
+  
+  .add-entry-form textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+  }
+  
+  .add-entry-form button {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .add-entry-form button:hover {
+    background-color: #218838;
+  }
+  
