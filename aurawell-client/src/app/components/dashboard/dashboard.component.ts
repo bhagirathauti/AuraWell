@@ -116,7 +116,7 @@ export class DashboardComponent implements OnInit {
   }
 
   formatDate(date: string) {
-    return this.datePipe.transform(date, 'yyyy-MM-dd HH:mm:ss');
+    return this.datePipe.transform(date, 'dd-MM-yyyy');
   }
   
 }

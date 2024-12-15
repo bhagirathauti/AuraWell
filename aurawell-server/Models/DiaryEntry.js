@@ -4,18 +4,18 @@ const diaryEntrySchema = new mongoose.Schema({
     content: {
         type: String,
         required: true,
-        validate: {
-            validator: function (value) {
-                const wordCount = value.split(' ').length;
-                return wordCount >= 50 && wordCount <= 200;
-            },
-            message: 'Content must be between 50 and 200 words.',
-        },
     },
     date: {
         type: Date,
         default: Date.now,
     },
+    mood: {
+        type: String,
+        required: true,
+    },
+    tips: {
+        type: String,
+    }
 }, { timestamps: true });
 
 const DiaryEntry = mongoose.model('DiaryEntry', diaryEntrySchema);

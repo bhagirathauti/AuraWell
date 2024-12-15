@@ -60,8 +60,10 @@ export class NewEntryDialogComponent {
           
           this.dialogRef.close({
             content: newEntry.content,
-            entryId: response.entryId,
-            date: newEntry.date
+            entryId: response.newEntry._id,
+            date: newEntry.date,
+            mood: response.newEntry.mood,
+            tips: response.newEntry.tips
           });
         },
         (error) => {

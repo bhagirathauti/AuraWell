@@ -71,3 +71,14 @@
     background-color: #218838;
   }
   
+
+  .card-date{
+    font-size: 15px;
+    color: #333;
+  }
+
+  .card-content{
+    font-size: 18px;
+    line-height: 1.5;
+    margin-bottom: 40px;
+  }

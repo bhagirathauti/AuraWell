@@ -50,6 +50,7 @@ export class EntriesService {
       errorMessage = `Error: ${error.error.message}`;
     } else {
       // Backend error
+      console.log(error);
       errorMessage = `Error Status: ${error.status}\nMessage: ${error.message}`;
     }
     return throwError(errorMessage);

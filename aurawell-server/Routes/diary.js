@@ -1,7 +1,8 @@
 const express = require('express');
-const Diary = require('../Models/DiaryEntry');
+const DiaryEntry = require('../Models/DiaryEntry');
 const User = require('../Models/UserModel'); 
 const Mood = require('../Models/MoodModel');
+const { generateContent } = require('../aimodel');
 const router = express.Router();
 
 router.post('/add-entry', async (req, res) => {
@@ -12,7 +13,16 @@ router.post('/add-entry', async (req, res) => {
     }
 
     try {
-        const newEntry = new Diary({ content });
+        const aiResponse = await generateContent(content);
+        console.log(aiResponse)
+        if (aiResponse.error) {
+            return res.status(400).json({ message: aiResponse.error });
+        }
+
+        const newEntry = new DiaryEntry({ ...aiResponse , content });
+        console.log(newEntry)
+
+
         const savedEntry = await newEntry.save();
 
         const user = await User.findOneAndUpdate(
@@ -25,7 +35,7 @@ router.post('/add-entry', async (req, res) => {
             return res.status(404).json({ message: 'User not found. Cannot save entry ID.' });
         }
 
-        res.status(201).json({ message: 'Entry added successfully!', entryId: savedEntry._id });
+        res.status(201).json({ message: 'Entry added successfully!', newEntry: savedEntry });
     } catch (err) {
         res.status(500).json({ message: 'Error adding entry', error: err.message });
     }
@@ -42,7 +52,7 @@ router.get('/get-entries/:email', async (req, res) => {
         if (!entryIds || entryIds.length === 0) {
             return res.status(404).json({ message: 'No diary entries found for this user' });
         }
-        const diaryEntries = await Diary.find({
+        const diaryEntries = await DiaryEntry.find({
             _id: { $in: entryIds }
         });
         res.status(200).json(diaryEntries);
@@ -60,7 +70,7 @@ router.put('/edit-entry/:id', async (req, res) => {
     }
 
     try {
-        const updatedEntry = await Diary.findByIdAndUpdate(
+        const updatedEntry = await DiaryEntry.findByIdAndUpdate(
             id,
             { content, updatedAt: Date.now() },
             { new: true }
@@ -89,7 +99,7 @@ router.delete('/delete-entry/:id', async (req, res) => {
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
-        const deletedEntry = await Diary.findByIdAndDelete(id);
+        const deletedEntry = await DiaryEntry.findByIdAndDelete(id);
 
         if (!deletedEntry) {
             return res.status(404).json({ message: 'Diary entry not found.' });
