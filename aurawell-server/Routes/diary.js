@@ -1,6 +1,7 @@
 const express = require('express');
 const Diary = require('../Models/DiaryEntry');
 const User = require('../Models/UserModel'); 
+const Mood = require('../Models/MoodModel');
 const router = express.Router();
 
 router.post('/add-entry', async (req, res) => {
@@ -102,5 +103,31 @@ router.delete('/delete-entry/:id', async (req, res) => {
     }
 });
 
+
+router.post('/add-mood', async (req, res) => {
+    const { email, mood } = req.body;
+
+    if (!email || !mood) {
+        return res.status(400).json({ message: 'Email and mood are required.' });
+    }
+
+    try {
+        const updatedMood = await Mood.findOneAndUpdate(
+            { email }, 
+            { $push: { moods: mood } },
+            { upsert: true, new: true } 
+        );
+
+        res.status(200).json({
+            message: 'Mood updated successfully!',
+            moodDetails: updatedMood
+        });
+    } catch (err) {
+        res.status(500).json({
+            message: 'Error updating or adding mood.',
+            error: err.message
+        });
+    }
+});
 
 module.exports = router;
