@@ -41,12 +41,10 @@ export class NewEntryDialogComponent {
     });
   }
 
-  // Submit method to handle form submission
   onSubmit() {
 
       const entryContent = this.newEntryForm.get('content')?.value;
       
-      // Create a new entry object
       const newEntry = {
         content: entryContent,
         date: new Date().toISOString()
@@ -54,7 +52,6 @@ export class NewEntryDialogComponent {
 
       console.log('New entry:', newEntry);
 
-      // Call the service to add the new entry
       this.entriesService.addEntry(this.email , newEntry.content).subscribe(
         (response) => {
           

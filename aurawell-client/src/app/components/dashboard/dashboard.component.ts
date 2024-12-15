@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { EntriesService } from '../../services/entries.service';  // Adjust path as needed
-import DiaryEntry from '../../models/dairy-entry.model';  // Adjust path as needed
+import { EntriesService } from '../../services/entries.service';
+import DiaryEntry from '../../models/dairy-entry.model';  
 import { MatDialog } from '@angular/material/dialog';  
 import { MatCard, MatCardActions } from '@angular/material/card';
 import { MatCardContent } from '@angular/material/card';
@@ -46,7 +46,6 @@ export class DashboardComponent implements OnInit {
     this.loadEntries();
   }
 
-  // Fetch all diary entries for the logged-in user
   loadEntries() {
     this.loading = true;
     this.entriesService.getEntries(this.email).subscribe(
@@ -62,12 +61,11 @@ export class DashboardComponent implements OnInit {
     );
   }
 
-  // Handle entry deletion
   deleteEntry(entryId: string) {
     this.entriesService.deleteEntry(entryId, this.email).subscribe(
       response => {
         this.toast.success('Entry deleted successfully');
-        this.entries = this.entries.filter(entry => entry._id !== entryId);  // Remove deleted entry from view
+        this.entries = this.entries.filter(entry => entry._id !== entryId);  
       },
       error => {
         console.error('Error deleting entry:', error);
@@ -75,7 +73,6 @@ export class DashboardComponent implements OnInit {
     );
   }
 
-  // Handle entry editing (opens a dialog)
   editEntry(entryId: string, currentContent: string) {
     const dialogRef = this.dialog.open(EditEntryDialog, {
       width: '400px',

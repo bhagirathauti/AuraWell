@@ -13,14 +13,11 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     
-    // Check if email exists in localStorage
     const email = localStorage.getItem('email');
 
     if (email) {
-      // Allow navigation if email is found
       return true;
     } else {
-      // Redirect to login page if no email in localStorage
       this.router.navigate(['/login']);
       return false;
     }

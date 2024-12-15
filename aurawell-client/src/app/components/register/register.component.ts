@@ -42,14 +42,12 @@ export class RegisterComponent {
   onSubmit() {
     if (this.registerForm.valid) {
       console.log('register submitted', this.registerForm.value);
-      // Implement your register logic here
 
       this.authService.signup(this.registerForm.value.name, this.registerForm.value.email, this.registerForm.value.password).subscribe(
         (response) => {
           console.log(response);
           this.toast.success('Registration successful', { duration: 1500 });
           setTimeout(() => {
-            // Redirect to login page
             this.router.navigate(['/login']);
           }, 1500);
         },

@@ -9,15 +9,12 @@
       </button>
     </div>
 
-    <!-- Loading Spinner -->
     <mat-progress-spinner *ngIf="loading" mode="indeterminate" diameter="50"></mat-progress-spinner>
 
-    <!-- Error Message -->
     <mat-card *ngIf="errorMessage" class="error-card">
       <mat-card-content>{{ errorMessage }}</mat-card-content>
     </mat-card>
 
-    <!-- Displaying all entries -->
     <div *ngIf="!loading && !errorMessage">
       <mat-card *ngFor="let entry of entries" class="entry-card">
         <mat-card-content>
