@@ -1,4 +1,4 @@
-# Mood Analysis and Trends Tracker
+# Aurawell
 
 ## Overview
 The Journal Entry and Mood Trends Tracker is an AI-powered journaling application that helps users analyze their daily moods through journal entries. By leveraging natural language processing, the app identifies user moods, provides actionable tips, and displays mood trends over time. This project is designed to encourage self-awareness and promote mental well-being.
